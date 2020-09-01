@@ -12,6 +12,7 @@ TM1637Display display(CLK, DIO);
 
 void setup()
 {
+  Serial.begin(9600);
   //Define pinos para o rele como saida
   pinMode(porta_rele1, OUTPUT);
   pinMode(porta_rele2, OUTPUT);
@@ -30,24 +31,22 @@ void loop() {
   digitalWrite(porta_rele1, HIGH);
   delay(1000);
 
-  for (long i = 21600; i > 0; i--) {
+  for (float i = 2160; i > 0; i--) {
+    Serial.println(i / 360);
     if (digitalRead(2)) {
-      delay(1000);
+      delay(10000);
     } else {
-      i = i - 100;
-      display.showNumberDec((i / 3600) * 100 + ((i - (3600 * (i / 3600))) / 60), false);
+      i = 0;
     }
   }
   digitalWrite(porta_rele1, LOW);
-  for (long i = 64800; i > 0; i--) {
+  for (long i = 6480; i > 0; i--) {
+    Serial.println(i / 360);
     if (digitalRead(2)) {
-      delay(1000);
-      if ( (i % 2) == 0)
-        display.setBrightness(0x00);
-      else
-        display.setBrightness(0x0a);
-    } else i = i - 100;
-    display.showNumberDec((i / 3600) * 100 + ((i - (3600 * (i / 3600))) / 60), false);
+      delay(10000);
+    } else {
+      i = 0;
+    }
   }
   digitalWrite(porta_rele1, HIGH);
   delay(100);
